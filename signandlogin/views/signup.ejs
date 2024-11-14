@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        form input,
+        form button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        form input:focus,
+        form button:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+
+        form button {
+            background-color: #4CAF50;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        form button:hover {
+            background-color: #45a049;
+        }
+
+        #errorMessage {
+            color: red;
+            font-size: 14px;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .login-link a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            form input,
+            form button {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Create an Account</h2>
+
+        <form id="signupForm">
+            <input type="text" name="name" placeholder="Name" required>
+            <input type="text" name="email" placeholder="Email" required> <!-- Added email field -->
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="number" name="age" placeholder="Age" required min="0">
+            <input type="text" name="address" placeholder="Address">
+            <input type="text" name="postcode" placeholder="Postcode" required>
+            <input type="text" name="phone" placeholder="Phone" required>
+            <input type="text" name="nickname" placeholder="Nickname" required>
+            <input type="text" name="hometown" placeholder="Hometown" required>
+            <button type="submit">Sign Up</button>
+        </form>
+
+        <div class="login-link">
+            Already have an account? <a href="/login">Log in here</a> <!-- Link to login page -->
+        </div>
+
+        <div id="errorMessage"></div>
+    </div>
+
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+
+            try {
+                const response = await fetch('/api/applicant', {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    alert(result.message);
+                    window.location.href = '/login';  // Redirect to login on successful signup
+                } else {
+                    document.getElementById('errorMessage').innerText = result.message;
+                }
+            } catch (error) {
+                document.getElementById('errorMessage').innerText = 'Error: Unable to submit form';
+            }
+        });
+    </script>
+</body>
+
+</html>

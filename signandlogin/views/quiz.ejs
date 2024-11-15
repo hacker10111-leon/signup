@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz</title>
+</head>
+<body>
+  <h1>Quiz Assessment</h1>
+  <form action="/quiz" method="POST">
+    <div>
+      <label for="question1">1. Do you enjoy working in teams?</label>
+      <input type="radio" name="question1" value="Yes" required> Yes
+      <input type="radio" name="question1" value="No"> No
+    </div>
+    <div>
+      <label for="question2">2. Do you prefer practical projects over theoretical work?</label>
+      <input type="radio" name="question2" value="Yes" required> Yes
+      <input type="radio" name="question2" value="No"> No
+    </div>
+    <div>
+      <label for="question3">3. Are you comfortable working with data and analytics?</label>
+      <input type="radio" name="question3" value="Yes" required> Yes
+      <input type="radio" name="question3" value="No"> No
+    </div>
+    <button type="submit">Submit Quiz</button>
+  </form>
+</body>
+</html>
